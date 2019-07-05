@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/recursos/template/template.xhtml">
+
+	<ui:define name="tituloPagina">Listagem de Contratos</ui:define>
+	<ui:define name="tituloPrincipal">Listagem de Contratos</ui:define>
+	<ui:define name="tituloSecundario">Consulta e exclusão de contratos que foram lançados no sistema</ui:define>
+
+	<ui:define name="botoesAcao" />
+
+	<ui:define name="conteudo">
+
+		<b:dataTable value="#{contratoBean.listarContratos()}" var="contrato">
+			<b:dataTableColumn label="Ações" >
+				    <b:commandButton value="Excluir" action="#{contratoBean.excluirContrato(contrato)}" ajax="true" update="@form" look="danger"/>
+			</b:dataTableColumn>
+			<b:dataTableColumn value="#{contrato.noivos}" label="Noivos" />
+			<b:dataTableColumn value="#{contrato.localDoEvento}" label="Local do Evento" />
+			<b:dataTableColumn value="#{contrato.localDaCerimonia}" label="Local da Cerimônia" />
+			<b:dataTableColumn value="#{contrato.dataHora}" label="Data/Hora" />
+			<b:dataTableColumn value="#{contrato.contato}" label="Telefone" />
+			<b:dataTableColumn value="#{contrato.numeroDeConvidados}" label="Contrato" />
+			<b:dataTableColumn value="#{contrato.tipoDeContrato.descricao}" label="Contrato" />
+			<b:dataTableColumn value="#{contrato.valorDoContratoComRS}" label="Valor" />
+			<b:dataTableColumn value="#{contrato.situacaoPagamento}" label="Situação Pagamento" />			
+		</b:dataTable>
+
+	</ui:define>
+
+</ui:composition>
+</html>

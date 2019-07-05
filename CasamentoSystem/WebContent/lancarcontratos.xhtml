@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/recursos/template/template.xhtml">
+
+	<ui:define name="tituloPagina">Cadastro de Contratos</ui:define>
+	<ui:define name="tituloPrincipal">Cadastro de Contratos</ui:define>
+	<ui:define name="tituloSecundario">Preencha todos os campos para o lançamento de um novo contrato no sistema</ui:define>
+
+	<ui:define name="botoesAcao">
+		<b:commandButton icon="plus-sign" value="Salvar" look="success"
+			action="#{contratoBean.cadastrarContrato()}" update="@form" />
+		<a href="/listarnoivos.jsf"> <b:button value="Listar Noivos"
+				look="success" />
+		</a>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<b:panelGrid columns="1">
+
+			<b:inputText id="noivos" value="#{contratoBean.contrato.noivos}"
+				label="Nome dos Noivos:" required="true" />
+
+			<b:inputText id="localevento"
+				value="#{contratoBean.contrato.localDoEvento}"
+				label="Local do Evento:" 
+				required="true" />
+
+			<b:inputText id="localcerimonia"
+				value="#{contratoBean.contrato.localDaCerimonia}"
+				label="Local da Cerimônia" 
+				required="true" />
+
+			<b:dateTimePicker id="dataehora"
+				value="#{contratoBean.contrato.dataHora}" 
+				format="DD/MM/YYYY HH:mm"
+				label="Data e Hora" 
+				required="true" />
+
+			<b:inputText value="#{contratoBean.contrato.contato}"
+				mask="99 99999-9999" 
+				label="Telefone para Contato:"
+				render-label="true" 
+				required="true" />
+
+			<b:inputText id="qtdeconvidados" 
+				mask="numeric"
+				label="Quantidade de Convidados:" 
+				render-label="true"
+				value="#{contratoBean.contrato.numeroDeConvidados}" 
+				required="true"/>
+
+			<b:selectOneMenu id="tipocontrato"
+				value="#{contratoBean.contrato.tipoDeContrato}"
+				converter="omnifaces.SelectItemsIndexConverter"
+				label="Tipo de Contrato"
+				required="true">
+				<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+				<f:selectItems value="#{tipoContratoBean.listaTiposDeContrato()}"
+					var="contratacao" itemLabel="#{contratacao.descricao}"
+					itemValue="#{contratacao}" />
+			</b:selectOneMenu>
+
+			<b:inputText value="#{contratoBean.contrato.valorDoContrato}"
+				mask="integer" label="Valor do Contrato:" 
+				render-label="true" 
+				required="true">
+				<f:facet name="prepend">
+					<h:outputText value="R$" />
+				</f:facet>
+				<f:facet name="append">
+					<h:outputText value=",00" />
+				</f:facet>
+			</b:inputText>
+
+			<p:outputLabel for="pagamento" value="Está pago?" />
+			<b:radiobutton id="pagamento" value="#{contratoBean.contrato.pago}" required="true" >
+				<f:selectItem itemValue="#{true}" itemLabel="Sim" />
+				<f:selectItem itemValue="#{false}" itemLabel="Não" />
+			</b:radiobutton>
+
+		</b:panelGrid>
+
+	</ui:define>
+
+</ui:composition>
+</html>
